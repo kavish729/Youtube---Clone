@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="img/logoyt.png">
+    <link rel="shortcut icon"
+        href="https://1.bp.blogspot.com/-zaoiLHspoKI/XeI_0uFAeCI/AAAAAAAAF38/CyHgdY8bdOQ7d979yOJ0voSIA8b5bAF2wCLcBGAsYHQ/s1600/Youtube-Icon-2000x2000.png">
+    <title> Youtube App Created By Kavish Chittora</title>
+    <!-- <style>
+        #search_results {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5%;
+            margin-top: 20px;
+        }
+    </style> -->
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="toggle-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <img src="img/logoyt.png" alt="" class="logo">
+        <div class="search-box">
+            <input type="text" id="search" placeholder="search">
+            <button onclick="searchVideos()" id="search-btn"><img src="img/search.png"></button>
+        </div>
+        <div class="user-options">
+            <img src="img/video.PNG" class="icon" alt="">
+            <img src="img/grid.PNG" class="icon" alt="">
+            <img src="img/bell.PNG" class="icon" alt="">
+            <div class="user-dp">
+                <img src="img/profile-pic (7).jpg" alt="">
+            </div>
+        </div>
+    </nav>
+    <div class="side-bar kavish">
+        <div class="side-bar">
+            <a href="#" class="links active"><img src="img/home.PNG" alt="">home</a>
+            <a href="#" class="links"><img src="img/explore.PNG" alt="">explore</a>
+            <a href="#" class="links"><img src="img/subscription.PNG" alt="">subscription</a>
+            <hr class="seperator">
+            <a href="#" class="links"><img src="img/library.PNG" alt="">library</a>
+            <a href="#" class="links"><img src="img/history.PNG" alt="">history</a>
+            <a href="#" class="links"><img src="img/your-video.PNG" alt="">your video</a>
+            <a href="#" class="links"><img src="img/watch-later.PNG" alt="">watch leater</a>
+            <a href="#" class="links"><img src="img/liked video.PNG" alt="">like video</a>
+            <a href="#" class="links"><img src="img/show more.PNG" alt="">show more</a>
+        </div>
+
+    </div>
+    <h1>Youtube</h1>
+
+    <div id="search_results">
+        <!-- <div class="video">
+            <img src="img/profile-pic (7).png" class="thumbnail" alt="">
+            <div class="content">
+                <img src="img/profile-pic (7).png" class="channel-icon" alt="">
+                <div class="info">
+                    <h4 class="title">youtube site creation | create working youtube site</h4>
+                    <p class="channel-name">Chhatrapal</p>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    <!-- <h1>Youtube</h1>
+    <input type="text" id="search">
+    <button onClick="searchVideos()">search</button>
+
+    <div id="search_results"></div> -->
+
+</body>
+
+</html>
+<script>
+    // aPI KEYS---AIzaSyBZ2GIrbO88aeMs7KqICvpn60w9ORZOQp8
+
+    const container = document.getElementById("search_results");
+    const searchVideos = async () => {
+
+        try {
+            let inp = document.getElementById("search").value;
+            let res = await fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=${inp}&key=AIzaSyBZ2GIrbO88aeMs7KqICvpn60w9ORZOQp8&maxResults=20`);
+
+            let data = await res.json();
+            let video = data.items;
+            appendVideos(video);
+            console.log("data:-", data)
+        }
+        catch (error) {
+            console.log("error:-", error)
+        }
+    }
+
+    // https://www.youtube.com/embed/ZZ4TiiM1q6s
+    const appendVideos = (data) => {
+        container.innerHTML = null;
+
+        data.map((el) => {
+
+            let div = document.createElement("div");
+            div.setAttribute("id", "govind")
+
+
+            let channelTitle = document.createElement("p")
+            channelTitle.innerText = el.snippet.title;
+
+            let iframe = document.createElement("img");
+            iframe.setAttribute("id", "iframe")
+            iframe.src = el.snippet.thumbnails.default.url;
+            iframe.addEventListener("click", () => {
+                localStorage.setItem("videoId", JSON.stringify(el));
+                window.location.href = "video.html"
+
+            })
+            iframe.style.width = "100%"
+            iframe.style.height = "70%"
+            div.append(iframe, channelTitle);
+
+            container.append(div);
+
+        });
+    }
+</script>

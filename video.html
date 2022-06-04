@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="video.css">
+    <link rel="shortcut icon"
+        href="https://1.bp.blogspot.com/-zaoiLHspoKI/XeI_0uFAeCI/AAAAAAAAF38/CyHgdY8bdOQ7d979yOJ0voSIA8b5bAF2wCLcBGAsYHQ/s1600/Youtube-Icon-2000x2000.png">
+    <title> Youtube App Created By Kavish Chittora</title>
+
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="toggle-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <img src="img/logoyt.png" alt="" class="logo">
+        <div class="search-box">
+            <input type="text" id="search" placeholder="search">
+            <button onclick="searchVideos()" id="search-btn"><img src="img/search.png"></button>
+        </div>
+        <div class="user-options">
+            <img src="img/video.PNG" class="icon" alt="">
+            <img src="img/grid.PNG" class="icon" alt="">
+            <img src="img/bell.PNG" class="icon" alt="">
+            <div class="user-dp">
+                <img src="img/profile-pic (7).jpg" alt="">
+            </div>
+        </div>
+    </nav>
+    <div id="Video">Video</div>
+
+</body>
+
+</html>
+<script>
+    try {
+        var videoId = JSON.parse(localStorage.getItem("videoId"));
+
+        var play = document.getElementById("Video")
+
+        var iframe = document.createElement("iframe");
+        iframe.src = `https://www.youtube.com/embed/${videoId.id.videoId}`;
+        iframe.height = "580px";
+        iframe.width = "100%";
+        iframe.allowFullscreen = "true";
+
+        iframe.allow = "autoplay;"
+
+        play.append(iframe);
+
+    }
+    catch (error) {
+        console.log("error:-", error)
+    }
+
+
+
+</script>
